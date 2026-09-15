@@ -16,7 +16,11 @@ CREATE SCHEMA IF NOT EXISTS H1B_SPONSOR_INTELLIGENCE.RAW;
 CREATE SCHEMA IF NOT EXISTS H1B_SPONSOR_INTELLIGENCE.SILVER;
 
 
--- 4. Define source file format
+-- 4. Create GOLD schema
+CREATE SCHEMA IF NOT EXISTS H1B_SPONSOR_INTELLIGENCE.GOLD;
+
+
+-- 5. Define source file format
 -- USCIS source file is UTF-16LE and tab-delimited
 CREATE OR REPLACE FILE FORMAT
     H1B_SPONSOR_INTELLIGENCE.RAW.H1B_CSV_FORMAT
@@ -27,7 +31,7 @@ CREATE OR REPLACE FILE FORMAT
     EMPTY_FIELD_AS_NULL = TRUE;
 
 
--- 5. Create secure AWS S3 storage integration
+-- 6. Create secure AWS S3 storage integration
 CREATE OR REPLACE STORAGE INTEGRATION H1B_S3_INTEGRATION
     TYPE = EXTERNAL_STAGE
     STORAGE_PROVIDER = 'S3'
@@ -38,7 +42,7 @@ CREATE OR REPLACE STORAGE INTEGRATION H1B_S3_INTEGRATION
         ('s3://h1b-sponsor-intelligence-jaivinay/raw/');
 
 
--- 6. Create Snowflake external stage pointing to S3 RAW
+-- 7. Create Snowflake external stage pointing to S3 RAW
 CREATE OR REPLACE STAGE
     H1B_SPONSOR_INTELLIGENCE.RAW.H1B_S3_STAGE
     URL = 's3://h1b-sponsor-intelligence-jaivinay/raw/'

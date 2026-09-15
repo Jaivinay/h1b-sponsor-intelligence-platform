@@ -28,6 +28,8 @@ The project combines a local Python data quality workflow with a Snowflake RAW-t
 |   |   `-- 01_create_and_load_raw.sql
 |   |-- 03_silver
 |   |   `-- 01_create_silver.sql
+|   |-- 04_gold
+|   |   `-- 01_create_gold_views.sql
 |   `-- 05_validation
 |       `-- 01_data_quality_checks.sql
 |-- src
@@ -137,12 +139,13 @@ The cleaning script performs the following transformations:
 The SQL scripts create a simple warehouse pipeline:
 
 1. Create the `H1B_SPONSOR_INTELLIGENCE` database.
-2. Create `RAW` and `SILVER` schemas.
+2. Create `RAW`, `SILVER`, and `GOLD` schemas.
 3. Define a UTF-16LE tab-delimited file format.
 4. Create an AWS S3 storage integration and external stage.
 5. Load source data into `RAW.H1B_EMPLOYER_RAW`.
 6. Transform RAW data into `SILVER.H1B_EMPLOYER_CLEAN`.
-7. Run data quality checks against RAW and SILVER tables.
+7. Create business-ready GOLD analytics views.
+8. Run data quality checks against RAW, SILVER, and GOLD objects.
 
 Run the Snowflake scripts in this order:
 
@@ -150,6 +153,7 @@ Run the Snowflake scripts in this order:
 sql/01_setup/01_snowflake_setup.sql
 sql/02_raw/01_create_and_load_raw.sql
 sql/03_silver/01_create_silver.sql
+sql/04_gold/01_create_gold_views.sql
 sql/05_validation/01_data_quality_checks.sql
 ```
 
@@ -164,6 +168,7 @@ The project validates:
 - Missing employer names.
 - Numeric petition count fields.
 - Fiscal year distribution.
+- GOLD layer row counts and aggregate totals.
 
 ## Notes
 
