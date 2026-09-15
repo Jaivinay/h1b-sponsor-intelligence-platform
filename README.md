@@ -10,7 +10,7 @@ The project combines a local Python data quality workflow with a Snowflake RAW-t
 - Identify missing values, duplicates, and invalid petition count fields.
 - Clean and standardize the source dataset.
 - Validate the processed output before warehouse loading.
-- Create Snowflake RAW and SILVER layers for downstream analysis.
+- Create Snowflake RAW, SILVER, and GOLD layers for downstream analysis.
 
 ## Repository Structure
 
